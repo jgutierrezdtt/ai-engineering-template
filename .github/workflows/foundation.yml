@@ -1,0 +1,56 @@
+name: foundation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: foundation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bootstrap:
+    runs-on: macos-15
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Provision pinned scanner
+        run: |
+          /usr/bin/python3 -B tools/bootstrap_scanner.py --directory "${RUNNER_TEMP}/aie-scanner"
+          echo "${RUNNER_TEMP}/aie-scanner" >> "$GITHUB_PATH"
+      - name: Verify required profile and available history
+        run: /usr/bin/python3 -B tools/verify_change.py --history
+      - name: Remove scanner
+        if: always()
+        run: |
+          rm -f -- "${RUNNER_TEMP}/aie-scanner/gitleaks"
+          if test -d "${RUNNER_TEMP}/aie-scanner"; then rmdir -- "${RUNNER_TEMP}/aie-scanner"; fi
+
+  native-hooks:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - name: Prepare pinned and disposable native environment
+        run: python3 -B tools/bootstrap_native.py
+      - name: Exercise native decisions, failures and external isolation
+        run: python3 -B tools/run_native_container.py --output .artifacts/native-report.json
+      - name: Retain sanitized observations
+        if: always() && hashFiles('.artifacts/native-report.json') != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: native-hook-observations
+          path: .artifacts/native-report.json
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,3 @@
+interface:
+  display_name: "DevOps y despliegue"
+  short_description: "CI/CD, artefactos y recuperación verificable"

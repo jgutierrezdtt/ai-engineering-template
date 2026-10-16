@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "repository": null,
+  "reviewers": [],
+  "cloud": {"provider": null, "project": null, "region": null},
+  "inference": {"provider": null, "model": null},
+  "product": {"first_agent": null, "allowed_actions": null, "data_classes": null},
+  "independent_review": {"technical_reference": null, "legal_reference": null}
+}

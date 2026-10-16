@@ -1,0 +1,3 @@
+interface:
+  display_name: "Arquitectura y SDK"
+  short_description: "Contratos, límites y compatibilidad del SDK"

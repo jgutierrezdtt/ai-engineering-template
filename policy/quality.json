@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "tool_versions": {"gitleaks": "8.30.1"},
+  "budgets_seconds": {"bootstrap": 120, "quick": 120, "release": 1800},
+  "max_parallel": 4,
+  "gates": [
+    {"id": "lint-types", "profiles": ["quick", "release"], "command": null},
+    {"id": "unit-contracts-sdk", "profiles": ["quick", "release"], "command": null},
+    {"id": "agent-policy-smoke", "profiles": ["quick", "release"], "command": null},
+    {"id": "ui-i18n-a11y-smoke", "profiles": ["quick", "release"], "command": null},
+    {"id": "dependency-audit", "profiles": ["quick", "release"], "command": null},
+    {"id": "integration-e2e", "profiles": ["release"], "command": null},
+    {"id": "agent-provider-evals", "profiles": ["release"], "command": null},
+    {"id": "security-full", "profiles": ["release"], "command": null},
+    {"id": "performance-recovery", "profiles": ["release"], "command": null},
+    {"id": "artifact-provenance", "profiles": ["release"], "command": null},
+    {"id": "compliance-evidence", "profiles": ["release"], "command": null}
+  ]
+}

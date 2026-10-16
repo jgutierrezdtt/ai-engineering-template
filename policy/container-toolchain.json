@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "base_image": "python@sha256:a2b82f3c48559aa0a8446d9af49826b6e2b2016f4cd2afabfe6013ec53729170",
+  "platform": "linux/arm64",
+  "packages": {
+    "claude": {
+      "version": "2.1.295",
+      "url": "https://registry.npmjs.org/@anthropic-ai/claude-code-linux-arm64/-/claude-code-linux-arm64-2.1.295.tgz",
+      "integrity": "sha512-JgQigCZCbsTnJQMLBjzeIpx001jlw+QlSR08SsAW7p0hjUR73DczX4NpO2lq/+RPm8w48KhM8DxJqhUmAMV5+Q==",
+      "member": "package/claude",
+      "executable_sha256": "cfb9dc1332fb6f92a683f835823e91b3179a803398ca7852cd2381a3cb1dea3b"
+    },
+    "codex": {
+      "version": "0.160.1",
+      "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.160.1-linux-arm64.tgz",
+      "integrity": "sha512-JLyjBlmjPvwTaicHemw+y5xQSz3Uja2r7F/xkvS8gFufTA2g132Ak+0fo35xnJ/k2uc9fTtjm0LrsEGI78L6Ng==",
+      "member": "package/vendor/aarch64-unknown-linux-musl/bin/codex",
+      "executable_sha256": "fbbaec80443919f86dd63648a0b62759cf6f1d0e09310602fde96885e0bceb3e"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aie_hook_root=\"$PWD\"\nwhile [ ! -f \"$aie_hook_root/AGENTS.md\" ] || [ ! -f \"$aie_hook_root/policy/agent-enforcement.json\" ]; do\n  if [ \"$aie_hook_root\" = / ]; then\n    printf '%s\\n' 'AI Engineering: no se encuentra el proyecto' >&2\n    exit 2\n  fi\n  aie_hook_root=$(dirname \"$aie_hook_root\")\ndone\nexec python3 -B \"$aie_hook_root/tools/agent_hooks.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aie_hook_root=\"$PWD\"\nwhile [ ! -f \"$aie_hook_root/AGENTS.md\" ] || [ ! -f \"$aie_hook_root/policy/agent-enforcement.json\" ]; do\n  if [ \"$aie_hook_root\" = / ]; then\n    printf '%s\\n' 'AI Engineering: no se encuentra el proyecto' >&2\n    exit 2\n  fi\n  aie_hook_root=$(dirname \"$aie_hook_root\")\ndone\nexec python3 -B \"$aie_hook_root/tools/agent_hooks.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aie_hook_root=\"$PWD\"\nwhile [ ! -f \"$aie_hook_root/AGENTS.md\" ] || [ ! -f \"$aie_hook_root/policy/agent-enforcement.json\" ]; do\n  if [ \"$aie_hook_root\" = / ]; then\n    printf '%s\\n' 'AI Engineering: no se encuentra el proyecto' >&2\n    exit 2\n  fi\n  aie_hook_root=$(dirname \"$aie_hook_root\")\ndone\nexec python3 -B \"$aie_hook_root/tools/agent_hooks.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aie_hook_root=\"$PWD\"\nwhile [ ! -f \"$aie_hook_root/AGENTS.md\" ] || [ ! -f \"$aie_hook_root/policy/agent-enforcement.json\" ]; do\n  if [ \"$aie_hook_root\" = / ]; then\n    printf '%s\\n' 'AI Engineering: no se encuentra el proyecto' >&2\n    exit 2\n  fi\n  aie_hook_root=$(dirname \"$aie_hook_root\")\ndone\nexec python3 -B \"$aie_hook_root/tools/agent_hooks.py\"",
+            "timeout": 10,
+            "onFailure": "block"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "aie_hook_root=\"$PWD\"\nwhile [ ! -f \"$aie_hook_root/AGENTS.md\" ] || [ ! -f \"$aie_hook_root/policy/agent-enforcement.json\" ]; do\n  if [ \"$aie_hook_root\" = / ]; then\n    printf '%s\\n' 'AI Engineering: no se encuentra el proyecto' >&2\n    exit 2\n  fi\n  aie_hook_root=$(dirname \"$aie_hook_root\")\ndone\nexec python3 -B \"$aie_hook_root/tools/agent_hooks.py\"",
+            "timeout": 150,
+            "onFailure": "block"
+          }
+        ]
+      }
+    ]
+  }
+}
