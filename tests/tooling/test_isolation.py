@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -73,6 +74,9 @@ class IsolationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             execute(["/usr/bin/true"], self.workspace, [self.workspace], [self.scratch],
                     environment={"PYTHONPATH": str(self.scratch)})
+        with patch("isolated_process.sys.base_prefix", "/"):
+            with self.assertRaises(ValueError):
+                configuration([self.workspace], [self.scratch])
 
     def test_excessive_output_is_bounded_and_cannot_accredit_success(self):
         result = self.child("import sys; sys.stdout.write('x' * (1024 * 1024 + 100))")

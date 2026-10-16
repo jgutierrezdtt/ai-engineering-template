@@ -41,6 +41,14 @@ def configuration(readable, writable, port=None):
         raise ValueError("Invalid loopback port")
     if platform.system() == "Darwin":
         system = ["/usr", "/bin", "/sbin", "/System", "/Library/Developer", "/Applications/Xcode.app", "/opt/homebrew"]
+        # Xcode and CI images may install Python in a versioned application path.
+        # Permit this controller's concrete interpreter/runtime, not all Applications
+        # or the user's home. Child environments still exclude Python overrides.
+        runtime = safe_directory(Path(sys.base_prefix))
+        executable_directory = safe_directory(Path(sys.executable).resolve().parent)
+        if any(path in {Path("/"), Path.home().resolve()} for path in (runtime, executable_directory)):
+            raise ValueError("Overbroad Python runtime location")
+        system += [runtime, executable_directory]
         filters = " ".join("(subpath " + json.dumps(str(p)) + ")" for p in system + reads + writes)
         write_filters = " ".join("(subpath " + json.dumps(str(p)) + ")" for p in writes)
         profile = ("(version 1)(deny default)(allow process-exec)(allow process-fork)"

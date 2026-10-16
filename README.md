@@ -226,7 +226,8 @@ privados del propietario; no publicar credenciales o datos personales en issues.
 El workflow `foundation` ejecuta `bootstrap` en macOS y `native-hooks` en Linux ARM64.
 Usa Actions fijadas por SHA, token con lectura de contenido, checkout sin credenciales
 persistentes y entornos temporales. No despliega ni recibe secretos de producción.
-Las observaciones nativas saneadas se retienen como artefacto de Actions durante 30 días.
+Los resultados saneados por caso y las observaciones nativas se retienen como
+artefactos de Actions durante 30 días; no incluyen prompts ni mensajes de excepción.
 
 Después de que ambos jobs terminen correctamente en la rama principal, con GitHub CLI
 autenticada y permiso de administración, revisa y aplica el conjunto de reglas:
