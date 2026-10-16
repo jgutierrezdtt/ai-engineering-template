@@ -102,7 +102,8 @@ def main() -> int:
         foundation = [
             {"id": "repository", "command": [sys.executable, "-B", str(ROOT / "tools/check_repository.py"), "--root", str(workspace)]},
             {"id": "secrets", "command": scanner},
-            {"id": "tooling-tests", "command": [sys.executable, "-B", str(ROOT / "tools/run_tooling_tests.py")]},
+            {"id": "tooling-tests", "command": [sys.executable, "-B", str(ROOT / "tools/run_tooling_tests.py"),
+                                                "--output", str(ROOT / ".artifacts/tooling-report.json")]},
         ]
         if execute(foundation, workspace, deadline, config["max_parallel"]):
             print("Bootstrap incompleto. Ejecutar el control fallido directamente para diagnosticarlo.")

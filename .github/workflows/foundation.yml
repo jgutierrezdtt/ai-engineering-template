@@ -28,6 +28,14 @@ jobs:
           echo "${RUNNER_TEMP}/aie-scanner" >> "$GITHUB_PATH"
       - name: Verify required profile and available history
         run: /usr/bin/python3 -B tools/verify_change.py --history
+      - name: Retain sanitized engineering outcomes
+        if: always() && hashFiles('.artifacts/tooling-report.json') != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: engineering-test-observations
+          path: .artifacts/tooling-report.json
+          if-no-files-found: error
+          retention-days: 30
       - name: Remove scanner
         if: always()
         run: |
